@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OqI-m0-Pr9">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Book" translatesAutoresizingMaskIntoConstraints="NO" id="14m-c6-nce">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MY STYLE TEAM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8rH-XS-Uts">
+                                        <rect key="frame" x="0.0" y="8" width="375" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="CUU-Zq-ha9"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="38"/>
+                                        <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="14m-c6-nce" firstAttribute="top" secondItem="OqI-m0-Pr9" secondAttribute="top" id="5cJ-aK-W8a"/>
+                                    <constraint firstAttribute="bottom" secondItem="14m-c6-nce" secondAttribute="bottom" id="5iw-LH-9sZ"/>
+                                    <constraint firstItem="8rH-XS-Uts" firstAttribute="leading" secondItem="OqI-m0-Pr9" secondAttribute="leading" id="JMQ-0q-aLk"/>
+                                    <constraint firstItem="8rH-XS-Uts" firstAttribute="top" secondItem="OqI-m0-Pr9" secondAttribute="top" constant="8" id="Nhw-dB-heV"/>
+                                    <constraint firstAttribute="trailing" secondItem="8rH-XS-Uts" secondAttribute="trailing" id="Pxc-3k-hbg"/>
+                                    <constraint firstAttribute="trailing" secondItem="14m-c6-nce" secondAttribute="trailing" id="bkD-Au-KDn"/>
+                                    <constraint firstItem="14m-c6-nce" firstAttribute="leading" secondItem="OqI-m0-Pr9" secondAttribute="leading" id="lL2-5G-5zv"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="OqI-m0-Pr9" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="CGq-dp-bbi"/>
+                            <constraint firstItem="OqI-m0-Pr9" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Xfk-Ec-hTi"/>
+                            <constraint firstItem="OqI-m0-Pr9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="j2I-uA-RRR"/>
+                            <constraint firstItem="OqI-m0-Pr9" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="oII-Jj-s4n"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52" y="374.66266866566718"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Book" width="375" height="667"/>
+    </resources>
+</document>
