@@ -22,21 +22,27 @@ class ContactViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     @IBOutlet weak var groupRequest: UIButton!
     @IBOutlet weak var groupCancel: UIButton!
     
-    let emailRecipient: [String] = [ "hello@mystyleteam.com" ]
-    let emailSubject = "MyStyleTeam Appointment Request"
+    //used for keyboard display to not cover text fields
+    @IBOutlet weak var outerView: UIView!
+    @IBOutlet weak var topLabelToTopViewConstraint: NSLayoutConstraint!
+    let topLabelToTopViewConstraintConstant:CGFloat = 20.0
+    
+    
+    let emailRecipient: [String] = [ ContactNumberAndServiceArea.contactEmail() ?? "emailaddressnotfound" ]
+    let emailSubject = ContactNumberAndServiceArea.emailSubject() ?? "Missing app information!"
     
     @IBAction func groupRequestButtonAction(_ sender: UIButton) {
         if !MFMailComposeViewController.canSendMail() {
             self.dismiss(animated: true, completion: nil)
             return
         }
-        groupCancel.setTitle("Return", for: .normal)
         let emailBody = EmailFormat.formatEmail(from: groupName.text, contact: groupPhone.text, address: groupStreet.text, cityorzip: nil, requestInfo: groupDetails.text?.removingPercentEncoding, at: groupTime.text, with: nil)
         let composeVC = MFMailComposeViewController()
         composeVC.mailComposeDelegate = self
         composeVC.setToRecipients(emailRecipient)
         composeVC.setSubject(emailSubject)
         composeVC.setMessageBody(emailBody, isHTML: false)
+        groupCancel.setTitle("Return", for: .normal)
         self.present(composeVC, animated: true, completion: nil)
      }
      func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
@@ -61,6 +67,19 @@ class ContactViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         displayResult.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
         self.present(displayResult, animated: true, completion: nil)
      }
+    
+    @objc func keyBoardWillShow(notification: NSNotification) {
+        if !groupDetails.isFirstResponder {
+            return
+        }
+        if let info = notification.userInfo {
+            let rect:CGRect = info["UIKeyboardFrameEndUserInfoKey"] as! CGRect
+            let targetY = view.frame.size.height - rect.height - 8 - groupDetails.intrinsicContentSize.height
+            let textFieldY = outerView.frame.origin.y + groupDetails.frame.maxY
+            self.topLabelToTopViewConstraint.constant = (targetY - textFieldY) + self.topLabelToTopViewConstraintConstant
+            self.view.layoutIfNeeded()
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -70,6 +89,8 @@ class ContactViewController: UIViewController, UITextFieldDelegate, UITextViewDe
             displayMessage.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
             self.present(displayMessage, animated: true, completion: nil)
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyBoardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 
         groupName.delegate = self
         groupPhone.delegate = self
@@ -86,6 +107,14 @@ class ContactViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         groupDetails.autocorrectionType = UITextAutocorrectionType.yes
         groupDetails.spellCheckingType = UITextSpellCheckingType.yes
         groupDetails.layer.cornerRadius = 10
+        
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(self.dismissTextViews))
+        toolBar.setItems([flexibleSpace, doneButton], animated: true)
+        groupPhone.inputAccessoryView = toolBar
+        groupDetails.inputAccessoryView = toolBar
     }
     
     var textViewHasBeenAutomaticallyOpened: Bool?
@@ -97,11 +126,28 @@ class ContactViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         if textViewHasBeenAutomaticallyOpened == nil {
             textViewHasBeenAutomaticallyOpened = true
             textView.resignFirstResponder()
+            topLabelToTopViewConstraint.constant = self.topLabelToTopViewConstraintConstant
             return
         }
         if textView.clearsOnInsertion == true {
             textView.clearsOnInsertion = false
             textView.text = String()
+        }
+    }
+    @objc func dismissTextViews() {
+        if groupPhone.isFirstResponder {
+            groupPhone.resignFirstResponder()
+            groupStreet.becomeFirstResponder()
+        }
+        else if groupDetails.isFirstResponder {
+            groupDetails.resignFirstResponder()
+            topLabelToTopViewConstraint.constant = topLabelToTopViewConstraintConstant
+            self.view.layoutIfNeeded()
+        }
+        else {
+            groupName.resignFirstResponder()
+            groupStreet.resignFirstResponder()
+            groupTime.resignFirstResponder()
         }
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -113,9 +159,6 @@ class ContactViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         textField.resignFirstResponder()
         if textField == groupName {
             groupPhone.becomeFirstResponder()
-        }
-        else if textField == groupPhone {
-            groupStreet.becomeFirstResponder()
         }
         else if textField == groupStreet {
             groupTime.becomeFirstResponder()
@@ -130,7 +173,12 @@ class ContactViewController: UIViewController, UITextFieldDelegate, UITextViewDe
             self.dismiss(animated: true, completion: nil)
             return
         }
-        groupDetails.resignFirstResponder()
+        if groupPhone.isFirstResponder {
+            groupPhone.resignFirstResponder()
+        }
+        else {
+            self.dismissTextViews()
+        }
     }
     
 }
