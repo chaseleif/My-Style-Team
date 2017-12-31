@@ -9,7 +9,12 @@
 import Foundation
 
 
-/*
+/*******
+ Receives several String? as indicated by $
+ this class returns a long string that is to be the body of the email
+ ******/
+
+/*Email Format:
  
  My Style Team!
  
@@ -24,7 +29,7 @@ import Foundation
  */
 
 class EmailFormat {
-    /*
+    /*variable names
     var customerName: String?
     var customerNumber: String?
     var customerStreet: String?
