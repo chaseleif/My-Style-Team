@@ -22,6 +22,7 @@ class AppointmentViewController: UIViewController, UITextFieldDelegate, UITextVi
     @IBOutlet weak var bookTime: UITextView!
     @IBOutlet weak var bookPromo: UITextField!
     
+    //default text labels for text fields, set below in viewDidLoad()
     var fieldText: [UITextField: String] = [:]
     var viewText: [UITextView : String] = [:]
     //buttons
@@ -172,57 +173,47 @@ class AppointmentViewController: UIViewController, UITextFieldDelegate, UITextVi
             textView.text = String()
         }
     }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if (textField.text?.isEmpty)! {
+            textField.text = fieldText[textField]
+            textField.clearsOnBeginEditing = true
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        topLabelToTopViewConstraint.constant = self.topLabelToTopViewConstraintConstant
+        self.view.layoutIfNeeded()
+    }
     @objc func dismissTextViews() {
         topLabelToTopViewConstraint.constant = self.topLabelToTopViewConstraintConstant
         self.view.layoutIfNeeded()
         if bookPhone.isFirstResponder {
-            if (bookPhone.text?.isEmpty)! {
-                bookPhone.text = fieldText[bookPhone]
-                bookPhone.clearsOnBeginEditing = true
-            }
             bookPhone.resignFirstResponder()
             bookStreet.becomeFirstResponder()
         }
         else if bookServices.isFirstResponder {
-            if (bookServices.text?.isEmpty)! {
+            if bookServices.text.isEmpty {
                 bookServices.text = viewText[bookServices]
                 bookServices.clearsOnInsertion = true
             }
             bookServices.resignFirstResponder()
         }
         else if bookName.isFirstResponder {
-            if (bookName.text?.isEmpty)! {
-                bookName.text = fieldText[bookName]
-                bookName.clearsOnBeginEditing = true
-            }
             bookName.resignFirstResponder()
         }
         else if bookStreet.isFirstResponder {
-            if (bookStreet.text?.isEmpty)! {
-                bookStreet.text = fieldText[bookStreet]
-                bookStreet.clearsOnBeginEditing = true
-            }
             bookStreet.resignFirstResponder()
         }
         else if bookZip.isFirstResponder {
-            if (bookZip.text?.isEmpty)! {
-                bookZip.text = fieldText[bookZip]
-                bookZip.clearsOnBeginEditing = true
-            }
             bookZip.resignFirstResponder()
         }
         else if bookTime.isFirstResponder {
-            if (bookTime.text?.isEmpty)! {
+            if bookTime.text.isEmpty {
                 bookTime.text = viewText[bookTime]
                 bookTime.clearsOnInsertion = true
             }
             bookTime.resignFirstResponder()
         }
         else if bookPromo.isFirstResponder {
-            if (bookPromo.text?.isEmpty)! {
-                bookPromo.text = fieldText[bookPromo]
-                bookPromo.clearsOnBeginEditing = true
-            }
             bookPromo.resignFirstResponder()
         }
     }
@@ -234,10 +225,6 @@ class AppointmentViewController: UIViewController, UITextFieldDelegate, UITextVi
         self.view.layoutIfNeeded()
         self.view.endEditing(true)
         textField.resignFirstResponder()
-        if (textField.text?.isEmpty)! {
-            textField.text = fieldText[textField]
-            textField.clearsOnBeginEditing = true
-        }
         if textField == bookName {
             bookPhone.becomeFirstResponder()
         }
@@ -254,13 +241,7 @@ class AppointmentViewController: UIViewController, UITextFieldDelegate, UITextVi
             self.dismiss(animated: true, completion: nil)
             return
         }
-        topLabelToTopViewConstraint.constant = self.topLabelToTopViewConstraintConstant
-        self.view.layoutIfNeeded()
         if bookPhone.isFirstResponder {
-            if (bookPhone.text?.isEmpty)! {
-                bookPhone.text = fieldText[bookPhone]
-                bookPhone.clearsOnBeginEditing = true
-            }
             bookPhone.resignFirstResponder()
         }
         else {

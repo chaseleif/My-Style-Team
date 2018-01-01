@@ -19,6 +19,7 @@ class ContactViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     @IBOutlet weak var groupDetails: UITextView!
     @IBOutlet weak var groupTime: UITextField!
     
+    //default text labels for text fields, set below in viewDidLoad()
     var fieldText: [UITextField: String] = [:]
     var viewText: [UITextView: String] = [:]
     
@@ -143,10 +144,6 @@ class ContactViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     }
     @objc func dismissTextViews() {
         if groupPhone.isFirstResponder {
-            if (groupPhone.text?.isEmpty)! {
-                groupPhone.text = fieldText[groupPhone]
-                groupPhone.clearsOnBeginEditing = true
-            }
             groupPhone.resignFirstResponder()
             groupStreet.becomeFirstResponder()
         }
@@ -160,25 +157,25 @@ class ContactViewController: UIViewController, UITextFieldDelegate, UITextViewDe
             self.view.layoutIfNeeded()
         }
         else if groupName.isFirstResponder {
-            if (groupName.text?.isEmpty)! {
-                groupName.text = fieldText[groupName]
-                groupName.clearsOnBeginEditing = true
-            }
             groupName.resignFirstResponder()
         }
         else if groupStreet.isFirstResponder {
-            if (groupStreet.text?.isEmpty)! {
-                groupStreet.text = fieldText[groupStreet]
-                groupStreet.clearsOnBeginEditing = true
-            }
             groupStreet.resignFirstResponder()
         }
         else if groupTime.isFirstResponder {
-            if (groupTime.text?.isEmpty)! {
-                groupTime.text = fieldText[groupTime]
-                groupTime.clearsOnBeginEditing = true
-            }
             groupTime.resignFirstResponder()
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if (textField.text?.isEmpty)! {
+            textField.text = fieldText[textField]
+            textField.clearsOnBeginEditing = true
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView == groupDetails {
+            topLabelToTopViewConstraint.constant = topLabelToTopViewConstraintConstant
+            self.view.layoutIfNeeded()
         }
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -188,10 +185,6 @@ class ContactViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         self.view.endEditing(true)
         textField.clearsOnBeginEditing = false
         textField.resignFirstResponder()
-        if (textField.text?.isEmpty)! {
-            textField.text = fieldText[textField]
-            textField.clearsOnBeginEditing = true
-        }
         if textField == groupName {
             groupPhone.becomeFirstResponder()
         }
@@ -209,10 +202,6 @@ class ContactViewController: UIViewController, UITextFieldDelegate, UITextViewDe
             return
         }
         if groupPhone.isFirstResponder {
-            if (groupPhone.text?.isEmpty)! {
-                groupPhone.text = fieldText[groupPhone]
-                groupPhone.clearsOnBeginEditing = true
-            }
             groupPhone.resignFirstResponder()
         }
         else {
