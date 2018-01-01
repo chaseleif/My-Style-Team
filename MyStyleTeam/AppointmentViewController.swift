@@ -21,6 +21,9 @@ class AppointmentViewController: UIViewController, UITextFieldDelegate, UITextVi
     @IBOutlet weak var bookServices: UITextView!
     @IBOutlet weak var bookTime: UITextView!
     @IBOutlet weak var bookPromo: UITextField!
+    
+    var fieldText: [UITextField: String] = [:]
+    var viewText: [UITextView : String] = [:]
     //buttons
     @IBOutlet weak var bookCancel: UIButton!
     
@@ -70,6 +73,18 @@ class AppointmentViewController: UIViewController, UITextFieldDelegate, UITextVi
         self.present(displayResult, animated: true, completion: nil)
     }
     
+    @objc func keyBoardWillShow(notification: NSNotification) {
+        if let info = notification.userInfo {
+            let rect:CGRect = info["UIKeyboardFrameEndUserInfoKey"] as! CGRect
+            let targetY = view.frame.size.height - rect.height - 8 - self.activeFieldHeight()
+            let textFieldY = outerView.frame.origin.y + activeFieldPos()
+            
+            if targetY < textFieldY {
+                self.topLabelToTopViewConstraint.constant = (targetY - textFieldY) + self.topLabelToTopViewConstraintConstant
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
     func activeFieldHeight() -> CGFloat {
         if bookServices.isFirstResponder {
             return bookServices.intrinsicContentSize.height
@@ -90,18 +105,6 @@ class AppointmentViewController: UIViewController, UITextFieldDelegate, UITextVi
             return bookPromo.frame.maxY
         }
         return CGFloat(0.0)
-    }
-    @objc func keyBoardWillShow(notification: NSNotification) {
-        if let info = notification.userInfo {
-            let rect:CGRect = info["UIKeyboardFrameEndUserInfoKey"] as! CGRect
-            let targetY = view.frame.size.height - rect.height - 8 - self.activeFieldHeight()
-            let textFieldY = outerView.frame.origin.y + activeFieldPos()
-            
-            if targetY < textFieldY {
-                self.topLabelToTopViewConstraint.constant = (targetY - textFieldY) + self.topLabelToTopViewConstraintConstant
-                self.view.layoutIfNeeded()
-            }
-        }
     }
     
     override func viewDidLoad() {
@@ -139,6 +142,10 @@ class AppointmentViewController: UIViewController, UITextFieldDelegate, UITextVi
         bookTime.layer.cornerRadius = 10
         bookTime.clearsOnInsertion = true
         
+        fieldText = [bookName:"Name", bookPhone:"Phone number", bookStreet:"Address", bookZip:"City or Postal code", bookPromo:"Promo code"]
+        viewText = [bookServices:"Services requested",
+                    bookTime:"Date(s) & time(s) available"]
+        
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
@@ -169,15 +176,53 @@ class AppointmentViewController: UIViewController, UITextFieldDelegate, UITextVi
         topLabelToTopViewConstraint.constant = self.topLabelToTopViewConstraintConstant
         self.view.layoutIfNeeded()
         if bookPhone.isFirstResponder {
+            if (bookPhone.text?.isEmpty)! {
+                bookPhone.text = fieldText[bookPhone]
+                bookPhone.clearsOnBeginEditing = true
+            }
             bookPhone.resignFirstResponder()
             bookStreet.becomeFirstResponder()
         }
-        else {
+        else if bookServices.isFirstResponder {
+            if (bookServices.text?.isEmpty)! {
+                bookServices.text = viewText[bookServices]
+                bookServices.clearsOnInsertion = true
+            }
             bookServices.resignFirstResponder()
+        }
+        else if bookName.isFirstResponder {
+            if (bookName.text?.isEmpty)! {
+                bookName.text = fieldText[bookName]
+                bookName.clearsOnBeginEditing = true
+            }
             bookName.resignFirstResponder()
+        }
+        else if bookStreet.isFirstResponder {
+            if (bookStreet.text?.isEmpty)! {
+                bookStreet.text = fieldText[bookStreet]
+                bookStreet.clearsOnBeginEditing = true
+            }
             bookStreet.resignFirstResponder()
+        }
+        else if bookZip.isFirstResponder {
+            if (bookZip.text?.isEmpty)! {
+                bookZip.text = fieldText[bookZip]
+                bookZip.clearsOnBeginEditing = true
+            }
             bookZip.resignFirstResponder()
+        }
+        else if bookTime.isFirstResponder {
+            if (bookTime.text?.isEmpty)! {
+                bookTime.text = viewText[bookTime]
+                bookTime.clearsOnInsertion = true
+            }
             bookTime.resignFirstResponder()
+        }
+        else if bookPromo.isFirstResponder {
+            if (bookPromo.text?.isEmpty)! {
+                bookPromo.text = fieldText[bookPromo]
+                bookPromo.clearsOnBeginEditing = true
+            }
             bookPromo.resignFirstResponder()
         }
     }
@@ -189,7 +234,10 @@ class AppointmentViewController: UIViewController, UITextFieldDelegate, UITextVi
         self.view.layoutIfNeeded()
         self.view.endEditing(true)
         textField.resignFirstResponder()
-        textField.clearsOnBeginEditing = false
+        if (textField.text?.isEmpty)! {
+            textField.text = fieldText[textField]
+            textField.clearsOnBeginEditing = true
+        }
         if textField == bookName {
             bookPhone.becomeFirstResponder()
         }
@@ -209,6 +257,10 @@ class AppointmentViewController: UIViewController, UITextFieldDelegate, UITextVi
         topLabelToTopViewConstraint.constant = self.topLabelToTopViewConstraintConstant
         self.view.layoutIfNeeded()
         if bookPhone.isFirstResponder {
+            if (bookPhone.text?.isEmpty)! {
+                bookPhone.text = fieldText[bookPhone]
+                bookPhone.clearsOnBeginEditing = true
+            }
             bookPhone.resignFirstResponder()
         }
         else {

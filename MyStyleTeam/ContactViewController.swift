@@ -18,6 +18,10 @@ class ContactViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     @IBOutlet weak var groupStreet: UITextField!
     @IBOutlet weak var groupDetails: UITextView!
     @IBOutlet weak var groupTime: UITextField!
+    
+    var fieldText: [UITextField: String] = [:]
+    var viewText: [UITextView: String] = [:]
+    
     //buttons
     @IBOutlet weak var groupRequest: UIButton!
     @IBOutlet weak var groupCancel: UIButton!
@@ -108,6 +112,9 @@ class ContactViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         groupDetails.spellCheckingType = UITextSpellCheckingType.yes
         groupDetails.layer.cornerRadius = 10
         
+        fieldText = [groupName:"Name", groupPhone:"Phone number", groupStreet:"Event location", groupTime:"Event date and time"]
+        viewText = [groupDetails:"Event details"]
+        
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
@@ -136,17 +143,41 @@ class ContactViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     }
     @objc func dismissTextViews() {
         if groupPhone.isFirstResponder {
+            if (groupPhone.text?.isEmpty)! {
+                groupPhone.text = fieldText[groupPhone]
+                groupPhone.clearsOnBeginEditing = true
+            }
             groupPhone.resignFirstResponder()
             groupStreet.becomeFirstResponder()
         }
         else if groupDetails.isFirstResponder {
+            if groupDetails.text.isEmpty {
+                groupDetails.text = viewText[groupDetails]
+                groupDetails.clearsOnInsertion = true
+            }
             groupDetails.resignFirstResponder()
             topLabelToTopViewConstraint.constant = topLabelToTopViewConstraintConstant
             self.view.layoutIfNeeded()
         }
-        else {
+        else if groupName.isFirstResponder {
+            if (groupName.text?.isEmpty)! {
+                groupName.text = fieldText[groupName]
+                groupName.clearsOnBeginEditing = true
+            }
             groupName.resignFirstResponder()
+        }
+        else if groupStreet.isFirstResponder {
+            if (groupStreet.text?.isEmpty)! {
+                groupStreet.text = fieldText[groupStreet]
+                groupStreet.clearsOnBeginEditing = true
+            }
             groupStreet.resignFirstResponder()
+        }
+        else if groupTime.isFirstResponder {
+            if (groupTime.text?.isEmpty)! {
+                groupTime.text = fieldText[groupTime]
+                groupTime.clearsOnBeginEditing = true
+            }
             groupTime.resignFirstResponder()
         }
     }
@@ -157,6 +188,10 @@ class ContactViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         self.view.endEditing(true)
         textField.clearsOnBeginEditing = false
         textField.resignFirstResponder()
+        if (textField.text?.isEmpty)! {
+            textField.text = fieldText[textField]
+            textField.clearsOnBeginEditing = true
+        }
         if textField == groupName {
             groupPhone.becomeFirstResponder()
         }
@@ -174,6 +209,10 @@ class ContactViewController: UIViewController, UITextFieldDelegate, UITextViewDe
             return
         }
         if groupPhone.isFirstResponder {
+            if (groupPhone.text?.isEmpty)! {
+                groupPhone.text = fieldText[groupPhone]
+                groupPhone.clearsOnBeginEditing = true
+            }
             groupPhone.resignFirstResponder()
         }
         else {
