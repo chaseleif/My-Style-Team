@@ -318,7 +318,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Lf-5c-eZf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="196" y="373"/>
+            <point key="canvasLocation" x="62" y="975"/>
         </scene>
         <!--IndividualBookView-->
         <scene sceneID="8tw-An-mAV">
@@ -968,7 +968,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eZm-Zm-FSP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1084" y="409"/>
+            <point key="canvasLocation" x="-1163" y="405"/>
         </scene>
         <!--SpecialOffersView-->
         <scene sceneID="oIw-g4-V4B">
@@ -1095,7 +1095,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PH6-LX-LxD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1083" y="-382"/>
+            <point key="canvasLocation" x="-1162" y="-1322"/>
         </scene>
         <!--ClassicServicesView-->
         <scene sceneID="zf1-gi-aQu">
@@ -1536,6 +1536,6 @@
         <image name="Wedding" width="375" height="667"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6oy-j1-SsU"/>
+        <segue reference="lCR-Ai-mni"/>
     </inferredMetricsTieBreakers>
 </document>

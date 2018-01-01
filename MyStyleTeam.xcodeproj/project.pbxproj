@@ -16,7 +16,6 @@
 		F92E49411FF6C83700949B1C /* ImagesUsed.rtf in Resources */ = {isa = PBXBuildFile; fileRef = F92E49401FF6C83700949B1C /* ImagesUsed.rtf */; };
 		F954E1F31FF34AF9000A0651 /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F954E1F21FF34AF9000A0651 /* ContactViewController.swift */; };
 		F954E1F51FF34B98000A0651 /* ServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F954E1F41FF34B98000A0651 /* ServicesViewController.swift */; };
-		F98A60091FF8ADE100131638 /* MessengerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98A60081FF8ADE100131638 /* MessengerService.swift */; };
 		F9AE5F461FF56FB600BD21F9 /* EmailFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AE5F451FF56FB600BD21F9 /* EmailFormat.swift */; };
 		F9E906F61FF89ECE0028B423 /* ContactNumberAndServiceArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E906F51FF89ECE0028B423 /* ContactNumberAndServiceArea.swift */; };
 /* End PBXBuildFile section */
@@ -33,7 +32,6 @@
 		F92E49401FF6C83700949B1C /* ImagesUsed.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = ImagesUsed.rtf; sourceTree = "<group>"; };
 		F954E1F21FF34AF9000A0651 /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
 		F954E1F41FF34B98000A0651 /* ServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesViewController.swift; sourceTree = "<group>"; };
-		F98A60081FF8ADE100131638 /* MessengerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerService.swift; sourceTree = "<group>"; };
 		F9AE5F451FF56FB600BD21F9 /* EmailFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailFormat.swift; sourceTree = "<group>"; };
 		F9E906F51FF89ECE0028B423 /* ContactNumberAndServiceArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactNumberAndServiceArea.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -80,7 +78,6 @@
 				F909D5971FF1E082007BA1C0 /* AppDelegate.swift */,
 				F909D5A31FF1E082007BA1C0 /* Info.plist */,
 				F92E49401FF6C83700949B1C /* ImagesUsed.rtf */,
-				F98A60081FF8ADE100131638 /* MessengerService.swift */,
 			);
 			path = MyStyleTeam;
 			sourceTree = "<group>";
@@ -161,7 +158,6 @@
 				F928CC211FF488AB0055D75A /* AppointmentViewController.swift in Sources */,
 				F954E1F31FF34AF9000A0651 /* ContactViewController.swift in Sources */,
 				F909D59A1FF1E082007BA1C0 /* MyStyleTeamViewController.swift in Sources */,
-				F98A60091FF8ADE100131638 /* MessengerService.swift in Sources */,
 				F9AE5F461FF56FB600BD21F9 /* EmailFormat.swift in Sources */,
 				F954E1F51FF34B98000A0651 /* ServicesViewController.swift in Sources */,
 				F909D5981FF1E082007BA1C0 /* AppDelegate.swift in Sources */,
